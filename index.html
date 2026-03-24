@@ -912,7 +912,7 @@
             section.innerHTML = `
                 <div class="already-added">
                     <div class="checkmark">✓</div>
-                    <p>Сегодня на нити ${moodWord} бисеринка.${todayEntry.comment ? '<br><em style="opacity:0.6;font-size:0.85rem;">«' + escapeHtml(todayEntry.comment).substring(0,60) + (todayEntry.comment.length > 60 ? '…' : '') + '»</em>' : ''}</p>
+                    <p>Сегодня на нити ${moodWord} бисеринка.${todayEntry.comment ? '<br><em style="opacity:0.6;font-size:0.85rem;">"' + escapeHtml(todayEntry.comment).substring(0,60) + (todayEntry.comment.length > 60 ? '…' : '') + '"</em>' : ''}</p>
                     <button class="edit-link" onclick="startEdit()">✎&ensp;Изменить сегодняшнюю</button>
                 </div>
             `;
@@ -986,7 +986,7 @@
             entries[idx].color = selectedColor;
             entries[idx].comment = comment;
         } else {
-            entries.push({ date: today, color: selectedColor, comment });
+            entries.unshift({ date: today, color: selectedColor, comment });
         }
 
         saveEntries(entries);
@@ -1030,7 +1030,7 @@
         let html = '<div class="chain-track" id="chainTrack"><div class="thread-line" id="threadLine"></div>';
 
         entries.forEach((entry, i) => {
-            const isLast = i === entries.length - 1;
+            const isLast = i === 0;
             const isToday = entry.date === today;
 
             let beadClasses = 'bead-item';
