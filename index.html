@@ -14,13 +14,39 @@
         }
 
         :root {
-            --bg: #f7f3ee;
-            --text: #2c2420;
-            --text-muted: #8a7e74;
-            --accent: #c4a882;
-            --accent-dark: #a08560;
-            --thread-color: #c4b59a;
-            --overlay: rgba(44, 36, 32, 0.6);
+            --bg: #eeeef7;
+            --text: #20202c;
+            --text-muted: #74748a;
+            --accent: #8582c4;
+            --accent-dark: #6160a0;
+            --thread-color: #9e9ac4;
+            --overlay: rgba(32, 32, 44, 0.6);
+            --add-s1: rgba(255, 255, 255, 0.7);
+            --add-s2: rgba(255, 255, 255, 0.3);
+            --com-a: rgba(255,255,255,0.5);
+            --add-btn: rgba(96, 96, 160, 0.3);
+            --comm: rgb(192, 189, 255);
+            --cancel: rgba(32,36,44,0.08);
+            --focus: rgba(255,255,255,0.8);
+            --shad: rgba(0,0,0,0.3);
+        }
+
+        [data-theme="dark"] {
+            --bg: #19191b;
+            --text: #a0a0df;
+            --text-muted: #74748a;
+            --accent: #67659c;
+            --accent-dark: #6160a0;
+            --thread-color: #545267;
+            --overlay: rgba(117, 117, 163, 0.6);
+            --add-s1: rgba(10, 10, 10, 0.7);
+            --add-s2: rgba(10, 10, 10, 0.3);
+            --com-a: rgba(0, 0, 0, 0.5);
+            --add-btn: rgba(59, 59, 99, 0.3);
+            --comm: #69679e;
+            --cancel: rgba(169, 189, 230, 0.08);
+            --focus: rgba(0,0,0,0.8);
+            --shad: rgba(0,0,0,1);
         }
 
         body {
@@ -28,27 +54,25 @@
             background-color: var(--bg);
             color: var(--text);
             min-height: 100vh;
-            overflow-x: hidden;
+            transition: all 0.3s ease-in-out;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-image:
-                radial-gradient(circle at 20% 50%, rgba(196,168,130,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(196,168,130,0.06) 0%, transparent 50%),
-                radial-gradient(circle at 50% 80%, rgba(196,168,130,0.05) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
+        .page-wrapper {
+            overflow-x: clip;
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
         }
 
         .page-container {
             z-index: 1;
             max-width: 700px;
             margin: 0 auto;
-            padding: 40px 24px 100px;
+            padding: 40px 24px 0 24px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         header {
@@ -72,9 +96,8 @@
             letter-spacing: 0.04em;
         }
 
-        /* Add section */
         .add-section {
-            background: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,255,255,0.3));
+            background: linear-gradient(135deg, var(--add-s1), var(--add-s2));
             backdrop-filter: blur(20px);
             border: 1px solid rgba(196,168,130,0.2);
             border-radius: 24px;
@@ -83,6 +106,7 @@
             text-align: center;
             animation: fadeInUp 1s ease-out 0.2s both;
             box-shadow: 0 8px 32px rgba(44,36,32,0.06);
+            transition: all 0.3s ease-in-out;
         }
 
         .add-section h2 {
@@ -139,7 +163,7 @@
         .bead-choice.selected .choice-bead {
             border-color: var(--accent-dark);
             transform: scale(1.1);
-            box-shadow: 0 0 0 4px rgba(196,168,130,0.3), 0 8px 24px rgba(44,36,32,0.15);
+            box-shadow: 0 0 0 4px rgba(132, 130, 196, 0.3), 0 8px 24px rgba(32, 32, 44, 0.15);
         }
 
         .choice-label {
@@ -159,22 +183,22 @@
         .comment-area textarea {
             width: 100%; height: 80px;
             padding: 16px 20px;
-            border: 1px solid rgba(196,168,130,0.3);
+            border: 1px solid rgba(130, 130, 196, 0.3);
             border-radius: 16px;
-            background: rgba(255,255,255,0.5);
+            background: var(--com-a);
             font-family: 'Inter', sans-serif;
             font-size: 0.9rem; font-weight: 300;
             color: var(--text);
             resize: none; outline: none;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease-in-out;
         }
 
         .comment-area textarea::placeholder { color: var(--text-muted); opacity: 0.6; }
 
         .comment-area textarea:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(196,168,130,0.15);
-            background: rgba(255,255,255,0.8);
+            box-shadow: 0 0 0 3px rgba(130, 131, 196, 0.15);
+            background: var(--focus);
         }
 
         .add-btn {
@@ -189,12 +213,12 @@
             letter-spacing: 0.06em;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
-            box-shadow: 0 4px 16px rgba(160,133,96,0.3);
+            box-shadow: 0 4px 16px var(--add-btn);
         }
 
         .add-btn:hover:not(:disabled) {
             transform: translateY(-2px) scale(1.03);
-            box-shadow: 0 8px 28px rgba(160,133,96,0.4);
+            box-shadow: 0 8px 28px var(--add-btn);
         }
 
         .add-btn:active:not(:disabled) { transform: translateY(0) scale(0.98); }
@@ -216,8 +240,8 @@
         .already-added .edit-link {
             display: inline-block; margin-top: 14px;
             padding: 10px 24px;
-            background: rgba(196,168,130,0.12);
-            border: 1px solid rgba(196,168,130,0.25);
+            background: rgba(132, 130, 196, 0.12);
+            border: 1px solid rgba(131, 130, 196, 0.25);
             border-radius: 50px;
             color: var(--accent-dark);
             font-family: 'Inter', sans-serif;
@@ -228,14 +252,14 @@
         }
 
         .already-added .edit-link:hover {
-            background: rgba(196,168,130,0.22);
-            border-color: rgba(196,168,130,0.45);
+            background: rgba(138, 130, 196, 0.22);
+            border-color: rgba(137, 130, 196, 0.45);
             transform: translateY(-1px);
         }
 
         .edit-badge {
             display: inline-block;
-            background: rgba(196,168,130,0.18);
+            background: rgba(134, 130, 196, 0.18);
             color: var(--accent-dark);
             font-size: 0.7rem; font-weight: 500;
             letter-spacing: 0.06em; text-transform: uppercase;
@@ -243,7 +267,6 @@
             margin-bottom: 14px;
         }
 
-        /* ===== Chain Section ===== */
         .chain-section {
             animation: fadeInUp 1s ease-out 0.4s both;
         }
@@ -268,11 +291,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-bottom: 60px;
+            padding-bottom: 30px;
             gap: 10px;
         }
 
-        /* The thread line */
         .thread-line {
             position: absolute;
             left: 50%;
@@ -286,7 +308,6 @@
             z-index: 0;
         }
 
-        /* Bead row */
         .bead-row {
             position: relative;
             display: flex;
@@ -295,7 +316,6 @@
             z-index: 2;
         }
 
-        /* Bead */
         .bead-item {
             height: 50px;
             width: 50px;
@@ -311,9 +331,8 @@
             top: 2px; right: 2px;
             width: 8px; height: 8px;
             border-radius: 50%;
-            background: var(--accent);
+            background: var(--comm);
             z-index: 4;
-            opacity: 50%;
         }
 
         .bead-sphere:hover {
@@ -330,12 +349,12 @@
 
         .bead-sphere.white {
             background: radial-gradient(circle at 35% 35%, #fff, #f0f0f0, #dfdfdf);
-            box-shadow: inset -3px -3px 8px rgba(0,0,0,0.1), inset 3px 3px 8px rgba(255,255,255,0.9), 0 6px 20px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.5);
+            box-shadow: inset -3px -3px 8px rgba(0,0,0,0.1), inset 3px 3px 8px rgba(255,255,255,0.9), 0 6px 20px var(--shad), 0 0 0 1px rgba(255,255,255,0.5);
         }
 
         .bead-sphere.black {
             background: radial-gradient(circle at 35% 35%, #5a5a5a, #2c2c2c, #151515);
-            box-shadow: inset -3px -3px 8px rgba(255,255,255,0.1), inset 3px 3px 8px rgba(0,0,0,0.6), 0 6px 20px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.1)
+            box-shadow: inset -3px -3px 8px rgba(255,255,255,0.1), inset 3px 3px 8px rgba(0,0,0,0.6), 0 6px 20px var(--shad), 0 0 0 1px rgba(255,255,255,0.1)
         }
 
         .bead-sphere.white::after {
@@ -344,15 +363,14 @@
         }
 
         .bead-sphere.black::after {
-            background: rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.3);
             box-shadow: inset 0 1px 1px rgba(0,0,0,0.4);
         }
 
         .bead-item.is-today .bead-sphere {
-            box-shadow: 0 0 0 2px rgba(196,168,130,0.5), 0 2px 8px rgba(44,36,32,0.15);
+            box-shadow: 0 0 0 2px rgba(134, 130, 196, 0.5), 0 2px 8px rgba(33, 32, 44, 0.15);
         }
 
-        /* Date label — positioned absolute inside bead-row */
         .date-label {
             position: absolute;
             right: 70px;
@@ -374,7 +392,6 @@
             transform: translateY(-50%) translateX(0);
         }
 
-        /* Month labels — fixed to right edge of viewport */
         .month-marker {
             position: absolute;
             right: 0;
@@ -398,7 +415,6 @@
             padding-left: 16px;
         }
 
-        /* Month labels — actually positioned absolute to page */
         .month-label-abs {
             position: absolute;
             font-family: 'Cormorant Garamond', serif;
@@ -426,13 +442,11 @@
             opacity: 0.6;
         }
 
-        /* Month ticks container — right side of screen */
         .month-ticks {
             position: absolute;
             top: 0;
-            right: -9999px; /* will be repositioned by JS */
+            right: 0;
             width: 0;
-            height: 100%;
             z-index: 5;
             pointer-events: none;
         }
@@ -457,7 +471,7 @@
 
         .month-tick-label {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 0.88rem;
+            font-size: 1rem;
             font-weight: 400;
             color: var(--accent-dark);
             letter-spacing: 0.03em;
@@ -482,7 +496,6 @@
 
         .bead-item.updated-bead { animation: beadUpdate 0.7s cubic-bezier(0.34,1.56,0.64,1); }
 
-        /* Modal */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -494,8 +507,7 @@
             align-items: center;
             justify-content: center;
             opacity: 0; visibility: hidden;
-            transition: all 0.4s ease;
-            padding: 24px;
+            transition: all 0.3s ease-in-out;
         }
 
         .modal-overlay.active { opacity: 1; visibility: visible; }
@@ -506,7 +518,7 @@
             padding: 40px;
             max-width: 420px; width: 100%;
             transform: scale(0.9) translateY(20px);
-            transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+            transition: all 0.3s ease-in-out;
             box-shadow: 0 24px 64px rgba(0,0,0,0.2);
             position: relative;
         }
@@ -525,7 +537,7 @@
             transition: all 0.3s ease;
         }
 
-        .modal-close:hover { background: rgba(44,36,32,0.12); color: var(--text); }
+        .modal-close:hover { background: rgba(33, 32, 44, 0.12); color: var(--text); }
 
         .modal-bead {
             display: flex; justify-content: center; margin-bottom: 24px;
@@ -604,7 +616,7 @@
         .modal-edit-btn {
             padding: 8px 20px;
             background: none;
-            border: 1px solid rgba(196,168,130,0.4);
+            border: 1px solid rgba(134, 130, 196, 0.4);
             border-radius: 50px;
             color: var(--accent-dark);
             font-family: 'Inter', sans-serif;
@@ -615,8 +627,8 @@
         }
 
         .modal-edit-btn:hover {
-            background: rgba(196,168,130,0.12);
-            border-color: rgba(196,168,130,0.6);
+            background: rgba(133, 130, 196, 0.12);
+            border-color: rgba(132, 130, 196, 0.6);
         }
 
         .today-badge {
@@ -629,7 +641,6 @@
             margin-bottom: 12px;
         }
 
-        /* Empty */
         .empty-state {
             text-align: center;
             padding: 60px 20px;
@@ -648,7 +659,6 @@
             line-height: 1.6;
         }
 
-        /* Toast */
         .toast {
             position: fixed;
             bottom: 30px; left: 50%;
@@ -660,7 +670,7 @@
             font-size: 0.88rem; font-weight: 400;
             z-index: 2000;
             transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             letter-spacing: 0.02em;
         }
 
@@ -677,9 +687,6 @@
         }
 
         @media (max-width: 600px) {
-            .page-container { padding: 28px 12px 80px; }
-            header h1 { font-size: 2.4rem; }
-            .add-section { padding: 28px 20px; border-radius: 20px; }
             .bead-choices { gap: 28px; }
             .choice-bead { width: 52px; height: 52px; }
             .modal { padding: 32px 24px; border-radius: 20px; }
@@ -690,8 +697,6 @@
             }
 
             .date-label { font-size: 0.65rem; }
-            .month-tick-label { font-size: 0.76rem; }
-            .month-tick-line { width: 12px; }
         }
 
         ::-webkit-scrollbar { width: 6px; }
@@ -701,22 +706,24 @@
 </head>
 <body>
 
-<div class="page-container">
-    <header>
-        <h1>Дневник настроения</h1>
-        <p>Нанизывай день за днём на нить жизни</p>
-    </header>
+<div class="page-wrapper">
+    <div class="page-container">
+        <header>
+            <h1>Дневник настроения</h1>
+            <p>Нанизывай день за днём на нить жизни</p>
+        </header>
 
-    <div class="add-section" id="addSection"></div>
+        <div class="add-section" id="addSection"></div>
 
-    <div class="chain-section" id="chainSection">
-        <h2>Твоя нить</h2>
-        <div class="chain-stats" id="chainStats"></div>
-        <div id="chainArea"></div>
+        <div class="chain-section" id="chainSection">
+            <h2>Твой дневник</h2>
+            <div class="chain-stats" id="chainStats"></div>
+            <div id="chainArea"></div>
+        </div>
+
+        <!-- Month ticks — positioned to right edge of screen -->
+        <div class="month-ticks" id="monthTicks"></div>
     </div>
-
-    <!-- Month ticks — positioned to right edge of screen -->
-    <div class="month-ticks" id="monthTicks"></div>
 </div>
 
 <div class="modal-overlay" id="modalOverlay">
@@ -735,8 +742,102 @@
     let hoveredIdx = -1;
 
     function getEntries() {
-        try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-        catch { return []; }
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.get('example')) {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+            catch { return []; }
+        } else {
+            return [
+                {
+                    "date": "2026-03-24",
+                    "color": "white",
+                    "comment": "Сделал предложение"
+                },
+                {
+                    "date": "2026-03-14",
+                    "color": "white"
+                },
+                {
+                    "date": "2026-03-13",
+                    "color": "white"
+                },
+                {
+                    "date": "2026-03-12",
+                    "color": "white"
+                },
+                {
+                    "date": "2026-03-11",
+                    "color": "black"
+                },
+                {
+                    "date": "2026-03-10",
+                    "color": "white",
+                    "comment": "Носок пересмотрел свое решение"
+                },
+                {
+                    "date": "2026-03-09",
+                    "color": "black"
+                },
+                {
+                    "date": "2026-03-08",
+                    "color": "white"
+                },
+                {
+                    "date": "2026-03-07",
+                    "color": "white",
+                    "comment": "Нашел способ написать носку про результаты узи после того как он меня заблокировал"
+                },
+                {
+                    "date": "2026-03-06",
+                    "color": "white"
+                },
+                {
+                    "date": "2026-03-05",
+                    "color": "black"
+                },
+                {
+                    "date": "2026-03-04",
+                    "color": "black",
+                    "comment": "Носок вышел на связь и сказал что нашел другую ногу"
+                },
+                {
+                    "date": "2026-03-03",
+                    "color": "black"
+                },
+                {
+                    "date": "2026-03-02",
+                    "color": "white"
+                },
+                {
+                    "date": "2026-03-01",
+                    "color": "black",
+                    "comment": "На пришедших результатах узи видно два маленьких носочка"
+                },
+                {
+                    "date": "2026-02-28",
+                    "color": "black",
+                    "comment": "Найденный носок оказался лишь куском ткани похожим на носок"
+                },
+                {
+                    "date": "2026-02-27",
+                    "color": "black"
+                },
+                {
+                    "date": "2026-02-26",
+                    "color": "white",
+                    "comment": "Нашел носок"
+                },
+                {
+                    "date": "2026-02-25",
+                    "color": "black"
+                },
+                {
+                    "date": "2026-02-24",
+                    "color": "black",
+                    "comment": "Потерял носок"
+                }
+            ]
+        }
     }
     function saveEntries(e) { localStorage.setItem(STORAGE_KEY, JSON.stringify(e)); }
 
@@ -802,7 +903,6 @@
         return d.innerHTML;
     }
 
-    // ---- Add Section ----
     function renderAddSection() {
         const section = document.getElementById('addSection');
         const todayEntry = getTodayEntry();
@@ -842,9 +942,9 @@
                 <textarea id="commentInput" placeholder="Что запомнилось сегодня? (необязательно)">${escapeHtml(preComment)}</textarea>
             </div>
             <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-                ${isEditing ? '<button class="add-btn" style="background:rgba(44,36,32,0.08);color:var(--text-muted);box-shadow:none;" onclick="cancelEdit()">Отмена</button>' : ''}
+                ${isEditing ? '<button class="add-btn" style="background:var(--cancel);color:var(--text-muted);box-shadow:none;" onclick="cancelEdit()">Отмена</button>' : ''}
                 <button class="add-btn" id="addBtn" onclick="saveBead()" ${preselect ? '' : 'disabled'}>
-                    ${isEditing ? 'Сохранить изменения' : 'Нанизать бисеринку'}
+                    ${isEditing ? 'Сохранить изменения' : 'Добавить бисеринку'}
                 </button>
             </div>
         `;
@@ -857,18 +957,21 @@
         });
         const btn = document.getElementById('addBtn');
         if (btn) btn.disabled = false;
+        document.documentElement.setAttribute('data-theme', color == 'white' ? 'light' : 'dark');
     }
 
     function startEdit() {
         editMode = true;
         renderAddSection();
         document.getElementById('addSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        renderChain();
     }
 
     function cancelEdit() {
         editMode = false;
         selectedColor = null;
         renderAddSection();
+        renderChain();
     }
 
     function saveBead() {
@@ -893,7 +996,6 @@
         showToast(isUpdate ? 'Бисеринка обновлена' : 'Бисеринка добавлена');
     }
 
-    // ---- Chain ----
     function renderChain(animType = false) {
         const entries = getEntries();
         const area = document.getElementById('chainArea');
@@ -917,16 +1019,14 @@
         const bc = entries.filter(e => e.color === 'black').length;
         stats.textContent = `${entries.length} ${pluralize(entries.length,'бисеринка','бисеринки','бисеринок')} · ${wc} белых · ${bc} черных`;
 
-        // Determine first bead of each month
         const monthFirstIdx = {};
-        entries.forEach((entry, i) => {
+        entries.toReversed().forEach((entry, i) => {
             const mk = getMonthKey(entry.date);
             if (!(mk in monthFirstIdx)) {
-                monthFirstIdx[mk] = i;
+                monthFirstIdx[mk] = entries.length - 1 - i;
             }
         });
 
-        // Build bead rows
         let html = '<div class="chain-track" id="chainTrack"><div class="thread-line" id="threadLine"></div>';
 
         entries.forEach((entry, i) => {
@@ -961,21 +1061,19 @@
         html += '</div>';
         area.innerHTML = html;
 
-        // Position month ticks on right side of screen
         requestAnimationFrame(() => {
             const track = document.getElementById('chainTrack');
             const threadLine = document.getElementById('threadLine');
-            if (!track) return;
+            const monthTicks = document.getElementById('monthTicks');
+            if (!track || !monthTicks) return;
 
-            // Set thread height
             if (threadLine) {
                 threadLine.style.height = track.scrollHeight + 'px';
             }
 
-            // Position month ticks relative to the track
             const trackRect = track.getBoundingClientRect();
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const trackTop = trackRect.top + scrollTop;
+            const trackTopAbs = trackRect.top + scrollTop;
 
             let ticksHtml = '';
 
@@ -985,8 +1083,8 @@
                 if (!row) return;
 
                 const rowRect = row.getBoundingClientRect();
-                const rowTop = rowRect.top + scrollTop;
-                const offsetFromTrack = rowTop - trackTop + rowRect.height / 2;
+                const rowTopAbs = rowRect.top + scrollTop;
+                const offsetFromTrack = rowTopAbs - trackTopAbs + rowRect.height / 2 - 10;
 
                 ticksHtml += `<div class="month-tick" style="top:${offsetFromTrack}px;">
                     <span class="month-tick-label">${monthYearLabel(entries[idx].date)}</span>
@@ -995,15 +1093,7 @@
             });
 
             monthTicks.innerHTML = ticksHtml;
-
-            // Position the month ticks container
-            const pageWidth = document.documentElement.clientWidth;
-            const rightMargin = 0;
-            monthTicks.style.right = rightMargin + 'px';
-            monthTicks.style.top = trackTop + 'px';
-            monthTicks.style.height = track.scrollHeight + 'px';
-            monthTicks.style.position = 'absolute';
-            monthTicks.style.left = 'auto';
+            monthTicks.style.top = trackTopAbs + 'px';
         });
     }
 
@@ -1027,7 +1117,6 @@
         if (el) el.classList.remove('visible');
     }
 
-    // ---- Modal ----
     function openModal(idx) {
         const entries = getEntries();
         const entry = entries[idx];
@@ -1079,14 +1168,12 @@
         showToast('Бисеринка удалена');
     }
 
-    // Events
     document.getElementById('modalClose').addEventListener('click', closeModal);
     document.getElementById('modalOverlay').addEventListener('click', e => {
         if (e.target === e.currentTarget) closeModal();
     });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    // Touch support for dates
     document.addEventListener('touchstart', function(e) {
         const bead = e.target.closest('.bead-item');
         if (bead) {
@@ -1099,7 +1186,6 @@
         document.querySelectorAll('.date-label.visible').forEach(el => el.classList.remove('visible'));
     }, { passive: true });
 
-    // Init
     renderAddSection();
     renderChain();
 
